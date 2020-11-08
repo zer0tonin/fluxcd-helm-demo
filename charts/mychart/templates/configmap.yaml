@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-conf
+data:
+  nginx.conf: |
+    events {
+      worker_connections  1024;
+    }
+    http {
+      server {
+          listen 80 default_server;
+          return 301 {{ .Values.redirect }};
+      }
+    }
