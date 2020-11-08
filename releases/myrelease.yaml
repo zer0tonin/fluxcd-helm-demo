@@ -1,0 +1,21 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: myrelease
+  namespace: default
+  annotations:
+    fluxcd.io/automated: "false"
+    fluxcd.io/tag.chart-image: glob:3.1.1-debian-9-*
+spec:
+  releaseName: myrelease
+  chart:
+    git: ssh://git@github.com/zer0tonin/fluxcd-helm-demo
+    ref: main
+    path: charts/mychart
+  values:
+    ingress:
+      enabled: true
+      hosts:
+        - host: test-record.seto.ovh
+          paths: ["/"]
